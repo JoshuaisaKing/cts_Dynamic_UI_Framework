@@ -1,0 +1,90 @@
+{
+  "courses": [
+    {
+      "id": 1,
+      "course_name": "Introduction to JavaScript",
+      "author": "Joshua Alwinking",
+      "course_level": "Medium"
+    },
+    {
+      "id": 2,
+      "course_name": "Introduction to Python",
+      "author": "Joshua Alwinking",
+      "course_level": "Easy"
+    },
+    {
+      "id": 3,
+      "course_name": "Introduction to HTML and CSS",
+      "author": "Joshua Alwinking",
+      "course_level": "Hard"
+    },
+    {
+      "id": 4,
+      "course_name": "Deep Learning with Python",
+      "author": "Joshua Alwinking",
+      "course_level": "Medium"
+    },
+    {
+      "id": 5,
+      "course_name": "Web Scraping with Python",
+      "author": "John Daniel",
+      "course_level": "Medium"
+    },
+    {
+      "id": 6,
+      "course_name": "Game with JavaScript",
+      "author": "Tommy Kutti",
+      "course_level": "Medium"
+    },
+    {
+      "id": "8",
+      "course_name": "Angular Course Intermediate",
+      "author": "Hergé",
+      "course_level": "Medium"
+    }
+  ],
+  "UserSignupForm": [
+    {
+      "role": "Administrator",
+      "name": "Joshua",
+      "email": "joshuaalwinking@gmail.com",
+      "password": "123456",
+      "id": 1
+    },
+    {
+      "role": "Student",
+      "name": "Joshua",
+      "email": "joshuaalwinking@gmail.com",
+      "password": "123456",
+      "id": 2
+    },
+    {
+      "role": "Student",
+      "name": "Seely Starling",
+      "email": "seelystarling@gmail.com",
+      "password": "123456",
+      "id": 3
+    },
+    {
+      "role": "Student",
+      "name": "Tommy Kutti",
+      "email": "tommykutti@gmail.com",
+      "password": "123456",
+      "id": 4
+    },
+    {
+      "role": "Student",
+      "name": "Tommy ",
+      "email": "tommy@gmail.com",
+      "password": "12345",
+      "id": 5
+    },
+    {
+      "role": "Student",
+      "name": "Joanna Evangeline",
+      "email": "jo@gmail.com",
+      "password": "123456",
+      "id": 6
+    }
+  ]
+}
