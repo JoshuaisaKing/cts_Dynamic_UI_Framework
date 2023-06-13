@@ -1,0 +1,130 @@
+<div class="container" #container>
+
+    <!-- Basic search field, advanced-toggler-button, outside content -->
+    <div class="row search-container basic-container">
+
+        <!-- Basic search field, advanced-toggler-button -->
+        <div class="col">
+            <div class="row">
+
+                <!-- Basic search -->
+                <div class="col-xl-6 search-col">
+
+                    <mat-form-field class="form-field">
+                        <mat-label>{{simpleFieldLabel}}</mat-label>
+                        <input matInput type="text" [(ngModel)]="searchTerm.simpleSearchTerm"
+                            (keyup)="this.outputUpdate()" [disabled]="searchTerm.searchMode !== 'simple'">
+                        <button class="input-button" *ngIf="searchTerm.simpleSearchTerm" matSuffix aria-label="Clear"
+                            (click)="clearBasicTerm()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </mat-form-field>
+
+                </div>
+
+                <!-- Advanced search toggler -->
+                <div class="col-xl-3 search-col search-extra-col advanced-search-col" (click)="toggleSearchMode()">
+                    <span class="advanced-search-col-label" *ngIf="searchTerm.searchMode === 'simple'"
+                        [@inOutAnimModelabelAdv]>
+                        <i class="fas fa-chevron-down"></i>&nbsp;
+                        Advanced Search
+                    </span>
+                    <span class="advanced-search-col-label" *ngIf="searchTerm.searchMode === 'advanced'"
+                        [@inOutAnimModelabelBas]>
+                        <i class="fas fa-chevron-up"></i>&nbsp;
+                        Basic Search
+                    </span>
+                </div>
+
+                <!-- Filter loading/saving -->
+                <div class="col-xl-3 search-col search-extra-col saved-term-col" *ngIf="showFilterSaving" (click)="openFilterSavePopup()">
+                    <span *ngIf="loadedFilterName === null || (loadedFilter !== null && loadedFilterChanged)" style="white-space: nowrap;" class="italic-text">
+                        <i class="fas fa-filter mr-1"></i>Save or load search rule
+                    </span>
+
+                    <span *ngIf="loadedFilterName !== null && !loadedFilterChanged" style="white-space: nowrap;">
+                        <i class="fas fa-filter mr-1"></i>
+                        <span class="underline" style="white-space: nowrap;">{{loadedFilterName}}</span>
+                        <sup *ngIf="this.loadedFilter.isDefault"><i class="far fa-star"></i></sup>
+                    </span>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- outside content -->
+        <div class="col content-container">
+            <ng-content></ng-content>
+        </div>
+
+    </div>
+
+    <!-- Advanced search -->
+    <div class="row search-container advanced-container" *ngIf="searchTerm.searchMode === 'advanced'"
+        [@inOutAnimAdvsearch]="{value: '',params: {maxHeight: advancedFieldHeight}}">
+
+        <!-- Search link toggle -->
+        <div class="col advanced-search-link-display" (click)="toggleAdvancedLink()" matRipple>
+            <span style="transform: rotate(-90deg);" *ngIf="searchTerm.advancedSearchLink === 'and'">AND</span>
+            <span style="transform: rotate(-90deg);" *ngIf="searchTerm.advancedSearchLink === 'or'">OR</span>
+        </div>
+
+        <div class="col advanced-termrow-container">
+
+            <!-- Term rows -->
+            <div class="row advanced-search-termrow" *ngFor="let term of searchTerm.advancedTerms">
+
+                <div class="col advanced-search-field advanced-search-column">
+                    <mat-form-field class="form-field">
+                        <mat-label>Field</mat-label>
+                        <mat-select [(value)]="term.fieldName" (valueChange)="updateTermField(term)">
+                            <mat-option [value]="header.id" *ngFor="let header of headers">
+                                {{header.displayText}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="col advanced-search-field advanced-search-negate" (click)="termNegate(term)" matRipple>
+                    <span class="advanced-search-negate-label" *ngIf="!term.isNegated">is</span>
+                    <span class="advanced-search-negate-label" *ngIf="term.isNegated">is not</span>
+                </div>
+
+                <div class="col advanced-search-field advanced-search-crit">
+                    <mat-form-field class="form-field">
+                        <mat-label>Criteria</mat-label>
+                        <mat-select [(value)]="term.action" (valueChange)="this.outputUpdate()">
+                            <mat-option [value]="'contains'">containing</mat-option>
+                            <mat-option [value]="'equals'">equal to</mat-option>
+                            <mat-option [value]="'larger than'">greater than</mat-option>
+                            <mat-option [value]="'smaller than'">less than</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="col advanced-search-field advanced-search-term">
+                    <mat-form-field class="form-field">
+                        <mat-label>Search term</mat-label>
+                        <input matInput type="text" [(ngModel)]="term.searchTerm" (keyup)="this.outputUpdate()">
+                    </mat-form-field>
+                </div>
+
+                <div class="col advanced-search-field advanced-search-delrow" (click)="delTermRow(term.id)">
+                    <i class="fas fa-trash-alt"></i>&nbsp;
+                    Delete
+                </div>
+
+            </div>
+
+            <!-- New row button -->
+            <div class="row advanced-search-termrow">
+                <div class="col-3 advanced-search-newrow" (click)="addTermRow()">
+                    <i class="fas fa-plus"></i>
+                    Add new row
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
