@@ -1,0 +1,16 @@
+<div class="advanced-search">
+    <h2>Advanced Search</h2>
+    <form (ngSubmit)="runSearch()">
+        <label>
+            Keyword:-  
+            <input type="text" [(ngModel)]="criteria.keyword" name="keyword">
+        </label>
+        <label>
+            Category:-
+            <select [(ngModel)]="criteria.category" name="category">
+                <ng-content></ng-content>
+            </select>
+        </label>
+    <button type="submit">Perform Advanced Search</button>
+    </form>
+</div>
